@@ -51,6 +51,6 @@ Users.hasMany(ArtsLike, {
   onUpdate: "cascade",
 });
 
-// db.sync();
+db.sync();
 
 module.exports = ArtsLike;

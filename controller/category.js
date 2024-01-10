@@ -13,12 +13,6 @@ const sequelize = require("sequelize");
 
 require("dotenv").config();
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
-
 const getCategories = async (req, res) => {
   try {
     // Query the database to retrieve all categories
@@ -100,16 +94,18 @@ const getAllArtsInCategory = async (req, res) => {
     // Extract the category ID from the request parameters
     const categoryId = req.params.id;
     const batchSize = 20;
-    
+
     // Find art items within the category
     const artsInCategory = await Category.findByPk(categoryId, {
-      include: [{
-        model: Art,
-        order: sequelize.literal('RAND()'), // Order randomly
-        limit: batchSize, // Limit the number of results
-      }],
+      include: [
+        {
+          model: Art,
+          order: sequelize.literal("RAND()"), // Order randomly
+          limit: batchSize, // Limit the number of results
+        },
+      ],
     });
-    
+
     // If the category is not found, send a 404 response
     if (!artsInCategory) {
       return res.status(404).send({ error: "Category not found" });
@@ -118,13 +114,13 @@ const getAllArtsInCategory = async (req, res) => {
     // Extract the art objects from artsInCategory and remove unnecessary category info
     const artsOnly = artsInCategory.artworks || [];
 
-    const checkArt = artsOnly.filter(art => {
+    const checkArt = artsOnly.filter((art) => {
       return (
         art.price !== null
         // Add additional conditions if needed
       );
     });
-    
+
     // Send a successful response with art items
     return res.status(200).send({ checkArt });
   } catch (error) {
@@ -147,7 +143,7 @@ const getAllCollectionsInCategory = async (req, res) => {
         {
           model: Collection,
           as: "collections",
-          order: sequelize.literal('RAND()'), // Order randomly
+          order: sequelize.literal("RAND()"), // Order randomly
           limit: batchSize, // Limit the number of results
           include: [
             {
@@ -158,7 +154,6 @@ const getAllCollectionsInCategory = async (req, res) => {
         },
       ],
     });
-
 
     // If the category is not found, send a 404 response
     if (!collectionsInCategory) {
@@ -219,8 +214,15 @@ const createCategory = async (req, res) => {
   const { name } = req.body;
   // Check if the "name" field is empty or contains only whitespace
   if (!name || !req.file) {
-    return res.status(400).json({success: false, message: "An error occurred while creating the category"});
+    return res
+      .status(400)
+      .json({
+        success: false,
+        message: "An error occurred while creating the category",
+      });
   }
+
+
 
   try {
     // Create a URL-friendly slug for the category name
@@ -233,13 +235,12 @@ const createCategory = async (req, res) => {
       slug = createNameSlug(name, counter);
     }
 
-    // Get the image URL using the uploaded file from the request
-    const result = await cloudinary.uploader.upload(req.file.path, { folder: "artsMarket" });
-
+    // Ensure that the image variable is correctly populated
+    const image = getImageUrl(req); // Check this function for any issues
     // Create a new category in the database
     const category = await Category.create({
       name: name,
-      image: result.secure_url,
+      image: image,
       slug: slug,
     });
 
@@ -293,7 +294,6 @@ const getAllCollectionsInCategoryForHeroSection = async (req, res) => {
             },
           ],
         },
-        
       ],
     });
 
@@ -306,7 +306,6 @@ const getAllCollectionsInCategoryForHeroSection = async (req, res) => {
     const collectionsWithStats = collectionsInCategory.collections.map(
       (collection) => {
         const artworks = collection.artworks || [];
-       
 
         const floorPrice = artworks.reduce((minPrice, art) => {
           const price = parseFloat(art.price);

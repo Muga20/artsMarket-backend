@@ -43,13 +43,13 @@ Art.hasMany(ArtMediums, {
   onUpdate: "cascade",
 });
 
-Medium.hasMany(ArtMediums, { // Add this association
+Medium.hasMany(ArtMediums, { 
   foreignKey: "medium_id",
   onDelete: "cascade",
   onUpdate: "cascade",
 });
 
 
-// db.sync();
+db.sync();
 
 module.exports = ArtMediums;

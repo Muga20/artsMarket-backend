@@ -47,6 +47,6 @@ Art.hasMany(ArtsTag, {
   onUpdate: "cascade",
 });
 
-// db.sync();
+ db.sync();
 
 module.exports = ArtsTag;

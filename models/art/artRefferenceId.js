@@ -26,6 +26,7 @@ ArtRefferenceId.belongsTo(Art, {
   onDelete: "cascade",
   onUpdate: "cascade",
 });
-// db.sync();
+
+db.sync();
 
 module.exports = ArtRefferenceId;

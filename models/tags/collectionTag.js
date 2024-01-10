@@ -47,6 +47,6 @@ Collection.hasMany(CollectionTags, {
   onUpdate: "cascade",
 });
 
-// db.sync();
+db.sync();
 
 module.exports = CollectionTags;

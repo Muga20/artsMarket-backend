@@ -98,6 +98,7 @@ Users.hasMany(Earning, {
   foreignKey: 'userId',
   as: 'creatorEarnings', // Alias for the relation
 });
- //db.sync();
+
+db.sync();
 
 module.exports = Users;

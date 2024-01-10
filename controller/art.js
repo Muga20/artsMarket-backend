@@ -15,13 +15,6 @@ const sequelize = require("sequelize");
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
-
-
 /**
  * This gets all the Arts (presumably artworks or creative works)
  * @returns {array} - An array of art objects
@@ -394,13 +387,14 @@ const createArt = async (req, res) => {
       return res.status(400).json({success: false, message: "image in not inserted"});
     }
 
+
     // Ensure that the image variable is correctly populated
-    const result = await cloudinary.uploader.upload(req.file.path, { folder: "artsMarket" });
+     const image = getImageUrl(req); // Check this function for any issues
 
     const art = await Art.create({
       name: name,
       description: description,
-      image:  result.secure_url,
+      image:  image,
       category_id: categoryId,
       serial: generatedSerial,
       slug: slug,

@@ -47,6 +47,6 @@ Collection.belongsTo(Category, {
   onUpdate: "cascade",
 });
 
-// db.sync();
+db.sync();
 
 module.exports = Category;

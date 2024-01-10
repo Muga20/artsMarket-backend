@@ -24,6 +24,6 @@ const Roles = db.define(
   }
 );
 
-// db.sync();
+db.sync();
 
 module.exports = Roles;

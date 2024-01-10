@@ -77,6 +77,6 @@ Art.belongsTo(Users, {
   onUpdate: "cascade",
 });
 
-// db.sync();
+db.sync();
 
 module.exports = Art;

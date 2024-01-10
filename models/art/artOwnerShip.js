@@ -42,6 +42,7 @@ ArtOwnership.belongsTo(ArtId, {
     onDelete: "cascade",
     onUpdate: "cascade",
   });
-// db.sync();
+  
+db.sync();
 
 module.exports = ArtOwnership;
