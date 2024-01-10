@@ -14,22 +14,20 @@ Create a .env file based on .env.example and add necessary environment variables
 - Node.js installed
 - npm or yarn
 
-###
-
 ### Clone the repository
 
   git clone https://github.com/Muga20/artsMarket-backend
 
 ### Navigate to the Project Directory
 
-  cd artMarket-server
+  - cd artMarket-server
 
 ### Install Dependencies
 
-  npm install
+  - npm install
 
 ### Run the Application
 
-  npm start
+  - npm start
 
 
