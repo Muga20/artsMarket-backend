@@ -12,12 +12,9 @@ const {
 } = require("../controller/collection");
 
 
-
 const { isAdmin, isVerified } = require("../middleware/checkRoles");
 const { verifyToken } = require("../middleware/auth");
-
 const upload = require("../middleware/imageUpload");
-
 const express = require("express");
 
 const CollectionRouter = express.Router();

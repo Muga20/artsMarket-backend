@@ -17,12 +17,12 @@ const upload = require("../middleware/imageUpload");
 const { createLike, getAllArtsLikedByUser } = require("../controller/artLikes");
 
 const {   getArtsOwnership, getArtOwnershipById, changeArtOwnership } = require("../controller/ArtOwnership");
-// const checkImageContent = require("../middleware/verifyExplicitContent");
+
 
 const ArtRoutes = require("express").Router();
 
 
-ArtRoutes.get("/get_all", getArts); // Excluded from verifyToken middleware
+ArtRoutes.get("/get_all", getArts); 
 ArtRoutes.get("/get_art_by_id/:id", getArtById);
 ArtRoutes.post("/create_art", upload,verifyToken, createArt);
 ArtRoutes.put("/update_art/:id", updateArt, verifyToken);
